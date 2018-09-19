@@ -1,0 +1,5 @@
+<h1>Otto</h1>
+
+<%= link to: auth_path(@conn, :request, :slack), role: "button" do %>
+  Add to Slack
+<% end %>
