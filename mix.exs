@@ -33,6 +33,7 @@ defmodule Otto.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:envy, "~> 1.1.1"},
       {:oauth2, "~> 0.8", override: true},
       {:phoenix, "~> 1.3.4"},
       {:phoenix_pubsub, "~> 1.0"},
