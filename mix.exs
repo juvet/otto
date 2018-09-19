@@ -34,7 +34,6 @@ defmodule Otto.Mixfile do
   defp deps do
     [
       {:envy, "~> 1.1.1"},
-      {:oauth2, "~> 0.8", override: true},
       {:phoenix, "~> 1.3.4"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
@@ -43,7 +42,7 @@ defmodule Otto.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:ueberauth_slack, "~> 0.4.1"}
+      {:ueberauth_slack, github: "ueberauth/ueberauth_slack", branch: "master"}
     ]
   end
 
