@@ -13,10 +13,10 @@ defmodule OttoWeb.AuthController do
     render(conn, "request.html", callback_url: Helpers.callback_url(conn))
   end
 
-  def callback(%{assigns: %{ueberauth_failure: fails}} = conn, _params) do
+  def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
     conn
     |> put_flash(:error, "Failed to authenticate.")
-    |> redirect(to: auth_path(conn, :request, fails.provider))
+    |> redirect(to: page_path(conn, :index))
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
@@ -29,7 +29,7 @@ defmodule OttoWeb.AuthController do
       {:error, reason} ->
         conn
         |> put_flash(:error, reason)
-        |> redirect(to: auth_path(conn, :request, auth.provider))
+        |> redirect(to: page_path(conn, :index))
     end
   end
 end
