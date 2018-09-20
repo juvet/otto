@@ -20,7 +20,7 @@ defmodule Otto.Mixfile do
   def application do
     [
       mod: {Otto.Application, []},
-      extra_applications: [:logger, :runtime_tools, :ueberauth_slack]
+      extra_applications: [:logger, :runtime_tools, :ueberauth_slack, :juvet]
     ]
   end
 
@@ -34,6 +34,7 @@ defmodule Otto.Mixfile do
   defp deps do
     [
       {:envy, "~> 1.1.1"},
+      {:juvet, "~> 0.0.1"},
       {:phoenix, "~> 1.3.4"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
