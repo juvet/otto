@@ -12,6 +12,8 @@
   </head>
 
   <body>
+    <p class="" role="alert"><%= get_flash(@conn, :info) %></p>
+    <p class="" role="alert"><%= get_flash(@conn, :error) %></p>
     <%= render @view_module, @view_template, assigns %>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
