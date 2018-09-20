@@ -14,8 +14,9 @@ defmodule OttoWeb.AuthController do
   end
 
   def callback(%{assigns: %{ueberauth_failure: fails}} = conn, _params) do
-    IO.inspect(fails)
-    text(conn, "Error")
+    conn
+    |> put_flash(:error, "Failed to authenticate.")
+    |> redirect(to: auth_path(conn, :request, fails.provider))
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
