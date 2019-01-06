@@ -5,8 +5,10 @@ defmodule OttoWeb.AuthControllerTest do
 
   describe "POST /auth/slack/callback" do
     @ueberauth_auth %{
-      credentials: %{token: "SLACK_TOKEN"},
-      other: %{user: "jimmyp", user_id: "USLACKUID"},
+      credentials: %{
+        token: "SLACK_TOKEN",
+        other: %{user: "jimmyp", user_id: "USLACKUID"}
+      },
       provider: :slack
     }
 

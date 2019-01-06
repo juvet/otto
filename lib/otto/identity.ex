@@ -38,8 +38,10 @@ defmodule Otto.Identity do
 
   def find_or_create_from_auth(%{
         provider: :slack,
-        credentials: %{token: access_token},
-        other: %{user: username, user_id: uid}
+        credentials: %{
+          token: access_token,
+          other: %{user: username, user_id: uid}
+        }
       }) do
     case(for_access_token(:slack, access_token)) do
       {:ok, identity} ->
