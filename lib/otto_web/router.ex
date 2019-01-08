@@ -27,5 +27,6 @@ defmodule OttoWeb.Router do
 
     get("/", PageController, :index)
     get("/settings", SettingsController, :index)
+    get("/welcome", WelcomeController, :index)
   end
 end
