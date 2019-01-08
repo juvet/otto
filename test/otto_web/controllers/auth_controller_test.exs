@@ -18,7 +18,7 @@ defmodule OttoWeb.AuthControllerTest do
       {:ok, conn: conn}
     end
 
-    test "creates an identity  with the slack information", %{conn: conn} do
+    test "creates an identity with the slack information", %{conn: conn} do
       post(conn, auth_path(conn, :callback, :slack))
 
       result = Identity |> Ecto.Query.last() |> Repo.one()
@@ -29,7 +29,9 @@ defmodule OttoWeb.AuthControllerTest do
       assert result.username == "jimmyp"
     end
 
-    test "redirects to the settings", %{conn: conn} do
+    test "redirects to the settings page when identity already exists", %{
+      conn: conn
+    } do
       conn = post(conn, auth_path(conn, :callback, :slack))
 
       assert redirected_to(conn) =~ settings_path(conn, :index)
