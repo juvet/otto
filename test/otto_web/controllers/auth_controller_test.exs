@@ -3,6 +3,8 @@ defmodule OttoWeb.AuthControllerTest do
 
   alias Otto.{Identity, Repo}
 
+  import Otto.Factory
+
   describe "POST /auth/slack/callback" do
     @ueberauth_auth %{
       credentials: %{
@@ -29,9 +31,17 @@ defmodule OttoWeb.AuthControllerTest do
       assert result.username == "jimmyp"
     end
 
+    test "redirects to the welcome page when the identity is new", %{conn: conn} do
+      conn = post(conn, auth_path(conn, :callback, :slack))
+
+      assert redirected_to(conn) =~ welcome_path(conn, :index)
+    end
+
     test "redirects to the settings page when identity already exists", %{
       conn: conn
     } do
+      insert(:slack_identity, %{access_token: "SLACK_TOKEN"})
+
       conn = post(conn, auth_path(conn, :callback, :slack))
 
       assert redirected_to(conn) =~ settings_path(conn, :index)
