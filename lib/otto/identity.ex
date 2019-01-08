@@ -59,6 +59,7 @@ defmodule Otto.Identity do
               username: username,
               uid: uid
             })
+            |> Tuple.append(%{new_record?: true})
         end
     end
   end
@@ -88,5 +89,6 @@ defmodule Otto.Identity do
       access_token: access_token
     })
     |> Repo.update()
+    |> Tuple.append(%{new_record?: false})
   end
 end

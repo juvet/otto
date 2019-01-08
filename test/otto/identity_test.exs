@@ -79,18 +79,25 @@ defmodule Otto.IdentityTest do
 
   describe ".find_or_create_from_auth with Slack" do
     @auth %{
-      credentials: %{token: "SLACK_TOKEN"},
-      other: %{user: "jimmyp", user_id: "USLACKUID"},
+      credentials: %{
+        token: "SLACK_TOKEN",
+        other: %{user: "jimmyp", user_id: "USLACKUID"}
+      },
       provider: :slack
     }
 
     test "creates a new identity" do
-      {:ok, identity} = Identity.find_or_create_from_auth(@auth)
+      {:ok, identity, _} = Identity.find_or_create_from_auth(@auth)
 
       assert identity.provider == "slack"
       assert identity.access_token == "SLACK_TOKEN"
       assert identity.uid == "USLACKUID"
       assert identity.username == "jimmyp"
+    end
+
+    test "create returns the correct metadata" do
+      assert {:ok, _identity, %{new_record?: true}} =
+               Identity.find_or_create_from_auth(@auth)
     end
 
     test "updates the identity for the provider and access_token" do
@@ -101,7 +108,7 @@ defmodule Otto.IdentityTest do
           access_token: "SLACK_TOKEN"
         })
 
-      {:ok, found_identity} = Identity.find_or_create_from_auth(@auth)
+      {:ok, found_identity, _} = Identity.find_or_create_from_auth(@auth)
 
       assert identity.id == found_identity.id
       assert found_identity.uid == "USLACKUID"
@@ -115,10 +122,22 @@ defmodule Otto.IdentityTest do
           access_token: "BLAH"
         })
 
-      {:ok, found_identity} = Identity.find_or_create_from_auth(@auth)
+      {:ok, found_identity, _} = Identity.find_or_create_from_auth(@auth)
 
       assert identity.id == found_identity.id
       assert found_identity.access_token == "SLACK_TOKEN"
+    end
+
+    test "update returns the correct metadata" do
+      {:ok, identity} =
+        Identity.create(%{
+          provider: "slack",
+          uid: "USLACKUID",
+          access_token: "BLAH"
+        })
+
+      assert {:ok, _identity, %{new_record?: false}} =
+               Identity.find_or_create_from_auth(@auth)
     end
   end
 end

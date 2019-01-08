@@ -21,7 +21,7 @@ defmodule OttoWeb.AuthController do
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     case Identity.find_or_create_from_auth(auth) do
-      {:ok, _identity} ->
+      {:ok, _identity, _metadata} ->
         conn
         |> put_flash(:info, "Welcome!")
         |> redirect(to: settings_path(conn, :index))
