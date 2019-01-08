@@ -34,6 +34,7 @@ defmodule Otto.Mixfile do
   defp deps do
     [
       {:envy, "~> 1.1.1"},
+      {:ex_machina, "~> 2.2", only: :test},
       {:juvet, "~> 0.0.1"},
       {:phoenix, "~> 1.3.4"},
       {:phoenix_pubsub, "~> 1.0"},
